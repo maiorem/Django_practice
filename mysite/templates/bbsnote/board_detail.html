@@ -1,0 +1,17 @@
+<h1>{{board.subject}}</h1>
+<div>
+    {{board.content}}
+</div>
+<h5>{{board.comment_set.count}} 개의 댓글이 있습니다.</h5>
+<div>
+    <ul>
+        {% for comment in board.comment_set.all %}
+            <li>{{ comment.content }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<form action="{% url 'bbsnote:comment_create' board.id %}" method="post">
+    {% csrf_token %}
+    <textarea name ="content" id ="content" rows ="5"> </textarea>
+    <input type="submit" value="댓글달기">
+</form>

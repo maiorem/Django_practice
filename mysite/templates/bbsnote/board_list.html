@@ -1,7 +1,7 @@
 {% if board_list %}
     <ul>
         {% for board in board_list %}
-        <li><a href="/bbsnote/{{board.id}}/">{{board.subject}}</a></li>
+        <li><a href="{% url 'bbsnote:detail' board.id %}">{{board.subject}}</a></li>
         {% endfor %}
     </ul>
 {% else %}
