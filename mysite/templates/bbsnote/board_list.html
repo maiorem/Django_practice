@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+
 {% if board_list %}
     <ul>
         {% for board in board_list %}
@@ -7,3 +10,4 @@
 {% else %}
     <p>글이 없습니다</p>
 {% endif %}
+{% endblock %}
