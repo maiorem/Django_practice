@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bbsnote_filter %}
 {% block content %}
 <div class="container my-3">
     <a href="{% url 'bbsnote:board_create' %}" class="btn btn-outline-secondary btn-block">게시글 등록</a>   
@@ -15,7 +16,7 @@
         {% if board_list %}
         {% for board in board_list %}
         <tr class="text-center">
-            <td>{{ forloop.counter }}</td>
+            <td>{{ board_list.paginator.count|sub:board_list.start_index|sub:forloop.counter0|add:1 }}</td>
             <td class="text-left">
                 <a href="{% url 'bbsnote:detail' board.id %}">{{ board.subject }}</a>                
             </td>            
