@@ -3,11 +3,16 @@ from django.http import HttpResponse
 from .models import Board, Comment
 from django.utils import timezone
 from .forms import BoardForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request) :
+    page=request.GET.get('page', 1) # page 이름으로 넘어오는 정보가 없으면 1
     board_list = Board.objects.order_by('-create_date') # 정렬 순서를 create_date decending
-    context = {'board_list' : board_list }
+    # 페이징 처리
+    paginator=Paginator(board_list, 5) # 페이징 기준을 5개 리스트로(6개째부터 2페이지)
+    page_obj=paginator.get_page(page)
+    context = {'board_list' : page_obj }
     return render(request, 'bbsnote/board_list.html', context)
     # return HttpResponse("bbsnote에 오신 것을 환영합니다.");
 
