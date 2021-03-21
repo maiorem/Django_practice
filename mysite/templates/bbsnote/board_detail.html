@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{board.subject}}</h1>
-<div>
-    {{board.content}}
-</div>
-<h5>{{board.comment_set.count}} 개의 댓글이 있습니다.</h5>
-<div>
-    <ul>
-        {% for comment in board.comment_set.all %}
-            <li>{{ comment.content }}</li>
-        {% endfor %}
-    </ul>
-</div>
-<form action="{% url 'bbsnote:comment_create' board.id %}" method="post">
+<div class="container my-3">
+    <h2 class="border-bottom py-2">{{ board.subject }}</h2>
+    <div class="col-11"> <!-- 본문 -->
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text">{{ board.content }}</div>
+            </div>
+        </div>
+    </div>
+    <h6 class="border-bottom my-3 py-2">{{board.comment_set.count}}개의 댓글이 있습니다.</h6>
+    {% for comment in board.comment_set.all %}
+    <div class="mt-3">
+        <div class="comment py-2 text-muted">
+            <span style="white-space: pre-line;">{{ comment.content }}</span>
+        </div>
+    </div>
+    {% endfor %}    
+    <form action="{% url 'bbsnote:comment_create' board.id %}" method="post">
     {% csrf_token %}
-    <textarea name ="content" id ="content" rows ="5"> </textarea>
-    <input type="submit" value="댓글달기">
-</form>
+        <div class="form-group">
+            <textarea name="content" id="content" class="form-control" rows="3"></textarea>
+        </div>
+        <input type="submit" value="댓글달기" class="btn btn-primary">
+    </form>
+</div>
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Board, Comment
 from django.utils import timezone
+from .forms import BoardForm
 
 # Create your views here.
 def index(request) :
@@ -22,3 +23,15 @@ def comment_create(request, board_id) :
     # Board 모델과 Comment 모델이 Foreign key로 묶여 있는 경우 _set으로 해주면 자동으로 표현이 됨
     board.comment_set.create(content=request.POST.get('content'), create_date=timezone.now()) 
     return redirect('bbsnote:detail', board_id=board.id)
+
+def board_create(request) :
+    if request.method=='POST' :
+        form=BoardForm(request.POST)
+        if form.is_valid() :
+            board=form.save(commit=False) # 저장은 하되 커밋은 하지 말 것.
+            board.create_date=timezone.now()
+            board.save()
+            return redirect('bbsnote:index')
+    else :
+        form=BoardForm()
+    return render(request, 'bbsnote/board_form.html', {'form':form})

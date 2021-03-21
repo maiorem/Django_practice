@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
-    <table class="table">
+    <a href="{% url 'bbsnote:board_create' %}" class="btn btn-outline-secondary btn-block">게시글 등록</a>   
+    <br>
+    <table class="table table-hover table-sm">
         <thead>
-        <tr class="text-center thead-dark"> 
-            <th></th>           
+        <tr class="text-center table-success"> 
+            <th>No.</th>           
             <th style="width:50%">제목</th>
             <th>작성일시</th>
         </tr>
@@ -22,7 +24,7 @@
         {% endfor %}
         {% else %}
         <tr>
-            <td colspan="3">질문이 없습니다.</td>
+            <td colspan="3">등록된 글이 없습니다.</td>
         </tr>
         {% endif %}
         </tbody>
