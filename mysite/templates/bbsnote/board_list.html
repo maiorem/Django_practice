@@ -20,7 +20,7 @@
             <td class="text-left">
                 <a href="{% url 'bbsnote:detail' board.id %}">{{ board.subject }}</a>                
             </td>            
-            <td>{{ board.create_date }}</td>
+            <td>{{ board.create_date|date:"Y-m-d H:i" }}</td>
         </tr>
         {% endfor %}
         {% else %}
