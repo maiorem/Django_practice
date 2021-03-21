@@ -1,13 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-
-{% if board_list %}
-    <ul>
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="text-center thead-dark"> 
+            <th></th>           
+            <th style="width:50%">제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if board_list %}
         {% for board in board_list %}
-        <li><a href="{% url 'bbsnote:detail' board.id %}">{{board.subject}}</a></li>
+        <tr class="text-center">
+            <td>{{ forloop.counter }}</td>
+            <td class="text-left">
+                <a href="{% url 'bbsnote:detail' board.id %}">{{ board.subject }}</a>                
+            </td>            
+            <td>{{ board.create_date }}</td>
+        </tr>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>글이 없습니다</p>
-{% endif %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table> 
+</div>
 {% endblock %}

@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>{{board.subject}}</h1>
 <div>
     {{board.content}}
@@ -15,3 +17,4 @@
     <textarea name ="content" id ="content" rows ="5"> </textarea>
     <input type="submit" value="댓글달기">
 </form>
+{% endblock %}
